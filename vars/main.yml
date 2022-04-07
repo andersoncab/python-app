@@ -1,4 +1,4 @@
 ---
 # vars file for desafio-aula06
-pacotes: ['docker.io','docker-compose']
+pacotes: ["docker.io","docker-compose"]
 server_dir: "/home/admin/"

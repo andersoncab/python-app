@@ -6,7 +6,6 @@
     update_cache: yes
     state: present
   become: true
-
 - name: Ativar o docker na inicializacao
   service:
     name: docker
@@ -14,7 +13,6 @@
     state: started
   tags:
     - ativa_docker
-
 - name: Copiando os arquivos da Aplicacao
   copy:
     src: "{{ item }}"
@@ -24,11 +22,8 @@
       - Dockerfile
       - docker-compose.yml
       - requirements.txt
-
 - name: Construindo a imagem Docker
   command: docker build -t myapp:1.0 .
   register: docker_build
-
   notify:
     - Subir Aplicacao
-
