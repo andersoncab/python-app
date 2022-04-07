@@ -1,0 +1,5 @@
+---
+# handlers file for desafio-aula06
+- name: Subir Aplicacao
+  command: docker-compose up -d
+  register: docker_compose_up

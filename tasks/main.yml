@@ -1,0 +1,34 @@
+---
+# tasks file for desafio-aula06
+- name: Instalar pacotes docker e docker-compose
+  yum:
+    name: "{{ pacotes }}"
+    update_cache: yes
+    state: present
+  become: true
+
+- name: Ativar o docker na inicializacao
+  service:
+    name: docker
+    enabled: yes
+    state: started
+  tags:
+    - ativa_docker
+
+- name: Copiando os arquivos da Aplicacao
+  copy:
+    src: "{{ item }}"
+    dest: "{{ server_dir }}"
+  with_items:
+      - app.py
+      - Dockerfile
+      - docker-compose.yml
+      - requirements.txt
+
+- name: Construindo a imagem Docker
+  command: docker build -t myapp:1.0 .
+  register: docker_build
+
+  notify:
+    - Subir Aplicacao
+
